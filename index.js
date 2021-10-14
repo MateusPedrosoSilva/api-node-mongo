@@ -1,12 +1,14 @@
 const express = require("express");
 const mongoose = require("mongoose");
+const dotenv = require("dotenv");
 
 const app = express();
 
-mongoose.connect("mongodb+srv://mateus:papao@api-test.exipg.mongodb.net/shop?retryWrites=true&w=majority")
+dotenv.config();
+
+mongoose
+    .connect(process.env.MONGO_URL)
     .then(() => console.log("DB connection success"))
     .catch((error) => console.log(error));
 
-app.listen(7070, () => {
-    console.log("Backend is running!");
-});
+app.listen(process.env.PORT || 7070, () => { console.log("Backend is running!"); });
